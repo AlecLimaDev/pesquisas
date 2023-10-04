@@ -4,7 +4,7 @@ const dataIbge = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   params: {
     tipo: "noticias",
-    de: "09-10-2023"
+    de: "01-01-2023"
   }
 });
 
