@@ -1,11 +1,37 @@
-import Home from "./pages/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import React from "react";
 
+import { AuthProvider } from "./context/AuthContext.tsx";
+import { styled } from "styled-components";
+import Navbar from "./components/Navbar/index.tsx";
+import Home from "./pages/Home/index.tsx";
+import About from "./pages/Pesquisas/index.tsx";
+import Footer from "./components/Footer/index.tsx";
+import Agregados from "./pages/Agregado/index.tsx";
+import Estatistic from "./pages/Estatistica/index.tsx";
 
-function App() {
+const App: React.FC = () => {
+  const Container = styled.div``;
+
   return (
-    <Home></Home>
-  )
-}
+    <>
+      <AuthProvider value={{}}>
+        <Router>
+          <Navbar />
+          <Container>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/pesquisas" element={<About />} />
+              <Route path="/estatistica" element={<Estatistic />} />
+              <Route path="/agregados" element={<Agregados />} />
+            </Routes>
+          </Container>
+          <Footer />
+        </Router>
+      </AuthProvider>
+    </>
+  );
+};
 
 export default App;
