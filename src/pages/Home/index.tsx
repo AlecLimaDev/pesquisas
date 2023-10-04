@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import dataIbge from "../../helper/data/Ibge";
-import styled from "styled-components";
+
+import {
+  Button,
+  Container,
+  Data,
+  Editorial,
+  Introducao,
+  Title,
+} from "./styled";
 
 type Dados = {
   id: number;
@@ -16,10 +24,6 @@ type Dados = {
   destaque: true;
   link: string;
 };
-
-const Container = styled.div`
-  background: #000000,
-`;
 
 const Home: React.FC = () => {
   const [data, setData] = useState<Dados[]>([]);
@@ -37,15 +41,20 @@ const Home: React.FC = () => {
   return (
     <>
       {data.length > 0 ? (
-        data.map((dados: Dados) => (
-          <Container key={String(dados.id)}>
-            <img src={dados.imagens} alt="" />
-            <p>{dados.data_publicacao}</p>
-            <h1>{dados.editorias}</h1>
-            <h3>{dados.introducao}</h3>
-            <p>{dados.destaque}</p>
-            <a href={dados.link}>Ver matéria</a>
-          </Container>
+        data.map((dados: Dados, index) => (
+          <>
+            <Container key={String(index)}>
+              <Editorial>{dados.editorias} </Editorial>
+              <Data>Postado: {dados.data_publicacao}</Data>
+              <Title>Assunto: {dados.titulo}</Title>
+              <Introducao>{dados.introducao}</Introducao>
+              <Button type="button">
+                <a target="_blank" href={dados.link}>
+                  Ver matéria
+                </a>
+              </Button>
+            </Container>
+          </>
         ))
       ) : (
         <div>
