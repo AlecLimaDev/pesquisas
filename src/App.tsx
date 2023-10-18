@@ -8,11 +8,12 @@ import Navbar from "./components/Navbar/index.tsx";
 import Home from "./pages/Home/index.tsx";
 import About from "./pages/Pesquisas/index.tsx";
 import Footer from "./components/Footer/index.tsx";
-import Agregados from "./pages/Agregado/index.tsx";
 import Estatistic from "./pages/Estatistica/index.tsx";
+import Divisoes from "./pages/Divisoes/index.tsx";
 
 const App: React.FC = () => {
-  const Container = styled.div``;
+  const Container = styled.div`
+  `;
 
   return (
     <>
@@ -24,7 +25,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/pesquisas" element={<About />} />
               <Route path="/estatistica" element={<Estatistic />} />
-              <Route path="/agregados" element={<Agregados />} />
+              <Route path="/divisoes" element={<Divisoes />} />
             </Routes>
           </Container>
           <Footer />
