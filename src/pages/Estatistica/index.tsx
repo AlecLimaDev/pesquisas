@@ -1,44 +1,6 @@
 import React, { useEffect, useState } from "react";
 import estatiticasApi from "../../helper/data/Estatisticas";
-import styled from "styled-components";
-
-const Container = styled.div`
-  background-color: #f7f7f7;
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-`;
-
-const StatisticItem = styled.div`
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
-
-  h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 16px;
-    color: #666;
-  }
-
-  &:hover {
-    transform: scale(1.03);
-  }
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 18px;
-  color: #ff6347;
-`;
+import { Container, ErrorMessage, StatisticItem } from "./styled";
 
 interface Estatistic {
   id: number;
@@ -56,6 +18,7 @@ interface Estatistic {
 const Estatistic: React.FC = () => {
   const [data, setData] = useState<Estatistic[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     estatiticasApi
@@ -70,16 +33,33 @@ const Estatistic: React.FC = () => {
       });
   }, []);
 
+  const filteredEstatistic = data.filter(
+    (estatistic: Estatistic) =>
+      search.length === 0 ||
+      estatistic.titulo.toLowerCase().includes(search) ||
+      estatistic.catTitle.toLowerCase().includes(search) ||
+      estatistic.path.toLowerCase().includes(search) ||
+      estatistic.parentCatTitle.toLowerCase().includes(search)
+  );
+
   return (
     <Container>
+      <input
+        placeholder="Buscar informações..."
+        name="search"
+        onChange={(e) => setSearch(e.target.value)}
+        value={search}
+      />
       {error ? (
         <ErrorMessage>{error}</ErrorMessage>
       ) : (
-        data.map((dados: Estatistic) => (
+        filteredEstatistic.map((dados: Estatistic) => (
           <StatisticItem key={String(dados.id)}>
             <h1>{dados.titulo}</h1>
             <h2>{dados.catTitle}</h2>
-            <p>{dados.path}</p>
+            <a>{dados.path}</a>
+            <p>{dados.catId}</p>
+            <p>{dados.parentCatTitle}</p>
           </StatisticItem>
         ))
       )}

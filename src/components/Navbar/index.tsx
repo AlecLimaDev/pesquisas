@@ -20,14 +20,14 @@ const Navbar: React.FC = () => {
       </Nav>
       <SubNav>
         <NavLink to="/" className="brand">
-          <img src="src/assets/img/ibge-logo.png" />
+          <img src="src/assets/img/ibge-logo.png" alt="IBGE Logo" />
         </NavLink>
         <LinkList>
           <li>
-            <NavLink to="/estatistica">Estatistica</NavLink>
+            <NavLink to="/estatistica">Estatística</NavLink>
           </li>
           <li>
-            <NavLink to="/agregados">Agregados</NavLink>
+            <NavLink to="/divisoes">Divisões</NavLink>
           </li>
         </LinkList>
       </SubNav>

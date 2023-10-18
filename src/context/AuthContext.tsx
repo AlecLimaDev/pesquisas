@@ -3,7 +3,7 @@ import { useContext, createContext, ReactNode } from "react";
 interface AuthProviderProps {
   children?: ReactNode;
   value?: any;
-}
+} 
 
 const AuthContext = createContext({});
 

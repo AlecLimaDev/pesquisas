@@ -27,40 +27,55 @@ type Dados = {
 
 const Home: React.FC = () => {
   const [data, setData] = useState<Dados[]>([]);
+  const [search, setSearch] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     dataIbge
       .get("/noticias")
       .then((response) => {
         setData(response.data.items);
-        console.log(response.data.items);
+        console.log(response.data.item);
       })
-      .catch((err) => console.log(err));
-  }, [setData]);
+      .catch(() => setError("Falha na requisição"));
+  }, []);
+
+  const filteredDados = data.filter(
+    (dados: Dados) =>
+      search.length === 0 ||
+      dados.editorias.toLowerCase().includes(search) ||
+      dados.data_publicacao?.toLowerCase().includes(search) ||
+      dados.titulo.toLowerCase().includes(search) ||
+      dados.introducao.toLowerCase().includes(search)
+  );
 
   return (
     <>
-      {data.length > 0 ? (
-        data.map((dados: Dados, index) => (
-          <>
-            <Container key={String(index)}>
-              <Editorial>{dados.editorias} </Editorial>
-              <Data>Postado: {dados.data_publicacao}</Data>
-              <Title>Assunto: {dados.titulo}</Title>
-              <Introducao>{dados.introducao}</Introducao>
-              <Button type="button">
-                <a target="_blank" href={dados.link}>
-                  Ver matéria
-                </a>
-              </Button>
-            </Container>
-          </>
-        ))
-      ) : (
-        <div>
-          <p>Falha na requisição</p>
-        </div>
-      )}
+     <Container>
+      <input
+      placeholder="Buscar..."
+        name="search"
+        onChange={(e) => setSearch(e.target.value)}
+        value={search}
+      />
+      </Container>
+      {filteredDados.map((dados: Dados, index) => (
+        <>
+          <Container key={index}>
+            <Editorial>{dados.editorias} </Editorial>
+            <Data>Postado: {dados.data_publicacao}</Data>
+            <Title>Assunto: {dados.titulo}</Title>
+            <Introducao>{dados.introducao}</Introducao>
+            <Button type="button">
+              <a target="_blank" href={dados.link}>
+                Ver matéria
+              </a>
+            </Button>
+          </Container>
+        </>
+      ))} : (
+        <>{error}</>
+      )
     </>
   );
 };

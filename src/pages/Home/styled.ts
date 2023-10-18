@@ -15,6 +15,8 @@ export const Editorial = styled.h1`
   color: #ff5733;
   font-family: "Arial", sans-serif;
   font-size: 28px;
+  text-transform: capitalize;
+
 `;
 
 export const Data = styled.p`

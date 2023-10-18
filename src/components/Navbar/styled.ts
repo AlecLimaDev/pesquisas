@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
 export const SubNav = styled.nav`
+  margin-bottom: 5%;
   position: relative;
   top: 50px;
-  background-color: #F9F3CC;
+  background-color: #f9f3cc;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-
   img {
     height: 100%;
     width: 100px;
+    
   }
 `;
 
@@ -70,9 +71,11 @@ export const LinkList = styled.ul`
     margin-right: 0.8em;
     letter-spacing: 0.1em;
     margin-bottom: 1em;
-
+    max-width: 100%;
     li a {
       padding: 0.2em 3em;
     }
   }
 `;
+
+

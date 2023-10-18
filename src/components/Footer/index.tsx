@@ -4,11 +4,7 @@ const Footer = () => {
   return (
     <>
       <S.Container>
-        <div>Mais informações
-          <p>Teste</p>
-          <p>Meus contatos</p>
-        </div>
-        <div>Atendimento</div>
+       
       </S.Container>
     </>
   )
