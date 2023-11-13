@@ -1,13 +1,16 @@
-import * as S from "./styled";
+import { HTMLAttributes } from "react";
 
-const Footer = () => {
+type FooterProps = HTMLAttributes<HTMLElement>
+
+const Footer = ({ children, ...rest }: FooterProps) => {
   return (
     <>
-      <S.Container>
+      <footer {...rest}>
+        {children}
         <p>Celular: 21 99578 - 1792</p>
         <p>Email: aleclimadev@gmail.com</p>
         <h3>Desenvolvedor Web: Alec Lima</h3>
-      </S.Container>
+      </footer>
     </>
   );
 };
