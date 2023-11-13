@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import pesquisasIbge from "../../helper/data/Pesquisas";
 import { Editorial, Introducao } from "../Home/styled";
 import { PesquisaContainer, Tematica, Descricao, ErrorMessage } from "./styled";
 import { Container } from "../Estatistica/styled";
+import { usePesquisas } from "../../hooks/usePesquisas";
+import { StyledInput } from "../../components/Input/styled";
 
-type Pesquisas = {
+type PesquisaItem = {
   codigo: string;
   nome: string;
   nome_ingles: null;
@@ -25,36 +25,19 @@ type Pesquisas = {
 };
 
 const Pesquisas = () => {
-  const [data, setData] = useState<Pesquisas[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    pesquisasIbge
-      .get("/metadados/pesquisas")
-      .then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      })
-      .catch(() => setError("Falha na Requisição"));
-  }, []);
-
-  const filteredTheNews = data.filter(
-    (item: Pesquisas) =>
-      search.length === 0 || item.nome.toLowerCase().includes(search)
-  );
+  const { error, filteredTheNews, setSearch, search } = usePesquisas();
 
   return (
     <div>
       <Container>
-      <input
-      placeholder="Buscar..."
-        name="search"
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-      />
+        <StyledInput
+          placeholder="Buscar..."
+          name="search"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
       </Container>
-      {filteredTheNews.map((pesquisa: Pesquisas, index) => (
+      {filteredTheNews.map((pesquisa: PesquisaItem, index) => (
         <PesquisaContainer key={index}>
           <Editorial>{pesquisa.nome}</Editorial>
           <Introducao>
@@ -65,7 +48,7 @@ const Pesquisas = () => {
           </Introducao>
         </PesquisaContainer>
       ))}
-      : (<ErrorMessage>{error}</ErrorMessage>)
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </div>
   );
 };

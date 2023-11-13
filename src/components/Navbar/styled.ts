@@ -1,20 +1,6 @@
 import styled from "styled-components";
 
-export const SubNav = styled.nav`
-  margin-bottom: 5%;
-  position: relative;
-  top: 50px;
-  background-color: #f9f3cc;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  img {
-    height: 100%;
-    width: 100px;
-    
-  }
-`;
+
 
 export const Nav = styled.nav`
   position: fixed;

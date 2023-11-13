@@ -1,5 +1,5 @@
 import React from "react";
-import { LinkList, Nav, SubNav } from "./styled";
+import { LinkList, Nav } from "./styled";
 import { NavLink } from "react-router-dom";
 
 const Navbar: React.FC = () => {
@@ -16,22 +16,11 @@ const Navbar: React.FC = () => {
           <li>
             <NavLink to="/pesquisas">Pesquisas</NavLink>
           </li>
-        </LinkList>
-      </Nav>
-      <SubNav>
-        <NavLink to="/" className="brand">
-          <img src="src/assets/img/ibge-logo.png" alt="IBGE Logo" />
-        </NavLink>
-        <LinkList>
           <li>
             <NavLink to="/estatistica">Estatística</NavLink>
           </li>
-          <li>
-            <NavLink to="/divisoes">Divisões</NavLink>
-          </li>
         </LinkList>
-      </SubNav>
-      <></>
+      </Nav>
     </>
   );
 };

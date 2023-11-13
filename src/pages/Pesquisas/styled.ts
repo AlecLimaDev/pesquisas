@@ -8,15 +8,14 @@ export const PesquisaContainer = styled.div`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
- 
+
   &:hover {
     transform: scale(1.01);
   }
 
-    input {
-      margin-top: 29px;
-    }
-
+  input {
+    margin-top: 29px;
+  }
 `;
 
 export const Tematica = styled.span`
