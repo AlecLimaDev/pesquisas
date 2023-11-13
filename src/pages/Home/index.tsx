@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import dataIbge from "../../helper/data/Ibge";
-
 import {
   Button,
   Container,
@@ -9,6 +6,8 @@ import {
   Introducao,
   Title,
 } from "./styled";
+import { useHome } from "../../hooks/useHome";
+import { StyledInput } from "../../components/Input/styled";
 
 type Dados = {
   id: number;
@@ -21,47 +20,26 @@ type Dados = {
   editorias: string;
   imagens: string;
   produtos_relacionados: string;
-  destaque: true;
+  destaque: boolean;
   link: string;
 };
 
 const Home: React.FC = () => {
-  const [data, setData] = useState<Dados[]>([]);
-  const [search, setSearch] = useState("");
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    dataIbge
-      .get("/noticias")
-      .then((response) => {
-        setData(response.data.items);
-        console.log(response.data.item);
-      })
-      .catch(() => setError("Falha na requisição"));
-  }, []);
-
-  const filteredDados = data.filter(
-    (dados: Dados) =>
-      search.length === 0 ||
-      dados.editorias.toLowerCase().includes(search) ||
-      dados.data_publicacao?.toLowerCase().includes(search) ||
-      dados.titulo.toLowerCase().includes(search) ||
-      dados.introducao.toLowerCase().includes(search)
-  );
+  const { error, filteredDados, setSearch, search } = useHome();
 
   return (
     <>
-     <Container>
-      <input
-      placeholder="Buscar..."
-        name="search"
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-      />
+      <Container>
+        <StyledInput
+          placeholder="Buscar..."
+          name="search"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
       </Container>
       {filteredDados.map((dados: Dados, index) => (
-        <>
-          <Container key={index}>
+        <div key={index}>
+          <Container>
             <Editorial>{dados.editorias} </Editorial>
             <Data>Postado: {dados.data_publicacao}</Data>
             <Title>Assunto: {dados.titulo}</Title>
@@ -72,10 +50,9 @@ const Home: React.FC = () => {
               </a>
             </Button>
           </Container>
-        </>
-      ))} : (
-        <>{error}</>
-      )
+        </div>
+      ))}{" "}
+      : (<>{error}</>)
     </>
   );
 };
